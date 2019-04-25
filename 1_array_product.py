@@ -17,6 +17,9 @@ def array_product(A):
     if not A:
         return None
 
+    # Array length
+    n = len(A)
+
     # Left product
     left_prod = []
 
@@ -24,18 +27,18 @@ def array_product(A):
     right_prod = []
 
     # Populate left product
-    for x in range(len(A)):
-        if x == 0:
-            left_prod.append(1)
+    for x in range(n):
+        if left_prod:
+            left_prod.append(left_prod[-1] * A[x-1])
         else:
-            left_prod.append(left_prod[x-1] * A[x-1])
+            left_prod.append(1)
 
     # Populate right product
-    for x in range(len(A)-1, -1, -1):
-        if x == len(A)-1:
-            right_prod.append(1)
-        else:
+    for x in range(n-1, -1, -1):
+        if right_prod:
             right_prod.append(right_prod[-1] * A[x+1])
+        else:
+            right_prod.append(1)
 
     # Reverse right production
     right_prod = right_prod[::-1]
