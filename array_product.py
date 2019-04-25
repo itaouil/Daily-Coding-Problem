@@ -35,10 +35,10 @@ def array_product(A):
         if x == len(A)-1:
             right_prod.append(1)
         else:
-            right_prod.append(right_prod[x-1] * A[x+1])
+            right_prod.append(right_prod[-1] * A[x+1])
 
-    print(left_prod)
-    print(right_prod)
+    # Reverse right production
+    right_prod = right_prod[::-1]
 
     # Combine left and right products
     prod = []
