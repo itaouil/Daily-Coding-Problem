@@ -57,7 +57,7 @@ def partition(A, idx):
 class TestPartition(unittest.TestCase):
 
     def test_empty_input(self):
-        self.partition(None, partition(None, 0))
+        self.assertEqual(None, partition(None, 0))
         self.assertEqual(None, partition([], None))
 
     def test_partitioning(self):

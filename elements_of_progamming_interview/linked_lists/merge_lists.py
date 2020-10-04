@@ -54,7 +54,7 @@ def merge(l1, l2):
         return merged
 
 
-def merge2(l1, l2):
+def merge_destructive(l1, l2):
     head = l1 if l1.data < l2.data else l2
     while l1 and l2:
         if l1.data < l2.data:
@@ -65,12 +65,13 @@ def merge2(l1, l2):
 
 
 def create_linked_list(numbers):
-    head = tail = ListNode()
-    for number in numbers:
-        tail.data = number
-        tail.next = ListNode()
-        tail = tail.next
-    tail = None
+    dummy = head = ListNode()
+    for number in numbers[:-1]:
+        dummy.data = number
+        dummy.next = ListNode()
+        dummy = dummy.next
+    dummy.data = numbers[-1]
+    dummy.next = None
     return head
 
 
@@ -83,12 +84,9 @@ def is_sorted(llist):
     return True
 
 
-class TestMerging(unittest.TestCase):
-    def test_merging(self):
-        assert is_sorted(merge2(
-            create_linked_list([2, 5, 7]),
-            create_linked_list([3, 11])))
+def test_merging():
+    assert is_sorted(merge_destructive(
+        create_linked_list([2, 5, 7]),
+        create_linked_list([3, 11])))
 
 
-import unittest
-unittest.main()
