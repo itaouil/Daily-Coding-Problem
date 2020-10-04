@@ -19,9 +19,6 @@ def create_random_tree(number_of_nodes, root, chance_of_left=0.5):
         create_random_tree(number_of_nodes - 1, root.right, chance_of_left)
 
 
-
-
-
 def depth(root):
     if not root: return 0
     if not root.left and not root.right:
@@ -42,4 +39,3 @@ def test_height_balance():
     root.left.right = BinaryTreeNode(5)
     root.left.right.left = BinaryTreeNode(1)
     assert not is_height_balanced(root)
-
