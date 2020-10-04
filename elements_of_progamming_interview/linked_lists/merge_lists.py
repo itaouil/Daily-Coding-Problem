@@ -17,40 +17,33 @@ class ListNode:
         self.data = data
         self.next = next_node
 
-def merge(l1, l2):
+def merge(L1, L2):
     # Cases
-    if not l1 and not l2:
+    if not L1 and not L2:
         return None
-    elif l1 and not l2:
-        return l1
-    elif l2 and not l1:
-        return l2
+    elif L1 and not L2:
+        return L1
+    elif L2 and not L1:
+        return L2
     else:
         # Initialize new LL
-        merged = ListNode(None, None)
+        dummy_head = tail = ListNode()
 
         # Merging process
-        while l1 and l2:
-            if l1.data <= l2.data:
-                merged.data = l1.data
-                l1 = l1.next
+        while L1 and L2:
+            if L1.data <= L2.data:
+                tail.next, L1 = L1, L1.next
             else:
-                merged.data = l2.data
-                l2 = l2.next
+                tail.next, L2 = L2, L2.next
             
-            merged.next = ListNode(None, None)
-            merged = merged.next
+            tail = tail.next
         
-        # Check if any list was
-        # shorter than the other
-        if l1:
-            merged.data = l1.data
-            merged.next = l1.next
-        elif l2:
-            merged.data = l2.data
-            merged.next = l2.next
+        # Add possible remaining
+        # elements if list differ
+        # in size
+        tail = L1 or L2
         
-        return merged
+        return dummy_head.next
 
 # Create test case
 list1 = ListNode(1, ListNode(3, ListNode(4, None)))
