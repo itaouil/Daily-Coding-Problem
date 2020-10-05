@@ -29,13 +29,27 @@ def depth(root):
         return 1 + depth(root.left)
 
 
-def is_height_balanced(root):
-    return abs(depth(root.right) - depth(root.left)) <= 1
+def is_height_balanced(tree, current_height=0):
+    if tree is None:
+        return True, current_height - 1
+    elif tree.left is None and tree.right is None:
+        return True, current_height
+
+    balanced_left, height_left = is_height_balanced(tree.left, current_height + 1)
+    balanced_right, height_right = is_height_balanced(tree.right, current_height + 1)
+    height = max(height_left, height_right)
+
+    if balanced_left and balanced_right:
+        return (abs(height_left - height_right) <= 1), height
+    else:
+        return False, height
 
 
 def test_height_balance():
-    root = BinaryTreeNode(5)
-    root.left = BinaryTreeNode(1)
-    root.left.right = BinaryTreeNode(5)
-    root.left.right.left = BinaryTreeNode(1)
-    assert not is_height_balanced(root)
+    tree = BinaryTreeNode(5)
+    tree.left = BinaryTreeNode(1)
+    tree.left.right = BinaryTreeNode(5)
+    tree.left.right.left = BinaryTreeNode(1)
+    balanced, height = is_height_balanced(tree)
+    assert not balanced
+    assert height == 3
